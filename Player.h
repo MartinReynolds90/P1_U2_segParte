@@ -16,7 +16,7 @@ public:
 	Player(String, Vector2i, Vector2f, int);
 	Sprite get_sprite();
 	Vector2f get_position();
-	void set_position(float,float);
+	void set_position(float, float);
 	float get_time();
 	void restart_clock();
 };

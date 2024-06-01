@@ -9,13 +9,13 @@ Game::Game(int alto_w, int ancho_w, String nombre) {
 	w = new RenderWindow(VideoMode(800, 600), nombre);
 	w->setFramerateLimit(fps);
 	e = new Event;
-	
+
 	clock = new Clock();
 	t = new Time();
 	inicial_y = 0;
 	inicial_x = 0;
 
-	
+
 	cout << "tiempo: " << t->asSeconds() << endl;
 
 
@@ -24,7 +24,7 @@ Game::Game(int alto_w, int ancho_w, String nombre) {
 	tx_fondo->loadFromFile("assets/mundo_fondo.jpg");
 	sp_fondo->setTexture(*tx_fondo);
 
-	player = new Player("assets/spritesheet.png",Vector2i(26,30),Vector2f(25, 460),5);
+	player = new Player("assets/spritesheet.png", Vector2i(26, 30), Vector2f(25, 460), 5);
 	bloque[10] = new Bloque("assets/bloque_pared.png", Vector2i(26, 30), Vector2f(200, 0), 5);
 
 	//bool direccion;
@@ -36,7 +36,7 @@ Game::Game(int alto_w, int ancho_w, String nombre) {
 
 void Game::gameloop() {
 	while (w->isOpen()) {
-		*t= clock->getElapsedTime();
+		*t = clock->getElapsedTime();
 		//cout << "tiempo: " << t->asSeconds() << endl;
 		//cout << "tiempo del player " << player->get_time() << endl;
 		while (w->pollEvent(*e)) {
@@ -57,18 +57,18 @@ void Game::gameloop() {
 				inicial_y = player->get_position().y;
 				//while(player->get_position().y >= inicial_y -100) {
 				for (int i = 0; i <= 11; i++) {
-					if (t->asSeconds()>=0.3){
-					    player->set_position(player->get_position().x + inicial_x, player->get_position().y -12);
-					    cout << "subida en y  " << player->get_position().y << "   subida en x  " << player->get_position().x << endl;
-					    clock->restart();
-					    dibujar();
+					if (t->asSeconds() >= 0.3) {
+						player->set_position(player->get_position().x + inicial_x, player->get_position().y - 12);
+						cout << "subida en y  " << player->get_position().y << "   subida en x  " << player->get_position().x << endl;
+						clock->restart();
+						dibujar();
 					}
 				}
 				//while (player->get_position().y < inicial_y) {
 				for (int i = 0; i <= 11; i++) {
-					if (t->asSeconds()>=0.3) {
+					if (t->asSeconds() >= 0.3) {
 						player->set_position(player->get_position().x + inicial_x, player->get_position().y + 12);
-						cout << "caida en y  " << player->get_position().y << "   caida en x  " << player->get_position().x<<endl;
+						cout << "caida en y  " << player->get_position().y << "   caida en x  " << player->get_position().x << endl;
 						clock->restart();
 						dibujar();
 					}
@@ -85,6 +85,6 @@ void Game::dibujar() {
 	w->clear(Color(255, 255, 255, 255));
 	w->draw(*sp_fondo);
 	w->draw(player->get_sprite());
-	
+
 	w->display();
 }

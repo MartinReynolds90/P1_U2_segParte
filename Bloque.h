@@ -12,4 +12,3 @@ public:
 	Bloque(String, Vector2i, Vector2f, int);
 	Sprite get_sprite();
 };
-
