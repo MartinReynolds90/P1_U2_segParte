@@ -12,14 +12,18 @@ class Game
 	Event* e;
 	Clock* clock;
 	Time* t;
+	//Clock* clock_temporizador;
+	//Time* time_temporizador;
+
 	Player* player;
 
 	Sprite* sp_fondo;   
 	Texture* tx_fondo;
 	int fps = 60;   
-	float ini_salto_y; //Guarda el valor inicial en el eje x, del personaje en el momento del salto
-	float ini_salto_x; //Guarda el valor inicial en el eje y, del personaje en el momento del salto
 
+	Font font_temporizador;
+	Text text_temporizador;
+	String temporizador_string;
 
 	Bloque* bloque1;
 	Bloque* bloque2;

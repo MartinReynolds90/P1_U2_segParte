@@ -52,8 +52,8 @@ void Player::set_position(float new_posX, float new_posY) {
 
 float Player::get_time() {
 	*time_player = clock_player->getElapsedTime();
-	float time_pj = time_player->asSeconds();
-	return time_pj;
+	float time_float = time_player->asSeconds();
+	return time_float;
 }
 
 void Player::restart_clock() {

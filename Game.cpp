@@ -12,16 +12,26 @@ Game::Game(int alto_w, int ancho_w, String nombre) {
 
 	clock = new Clock();
 	t = new Time();
+	//clock_temporizador = new Clock();
+	//time_temporizador = new Time();
 
-
-
-	cout << "tiempo: " << t->asSeconds() << endl;
+	*t = clock->getElapsedTime();
+	//*time_temporizador = clock_temporizador->getElapsedTime();
+    cout << "tiempo animacion : " << t->asSeconds() << endl;
+	//cout << "tiempo temporizador: " << time_temporizador->asSeconds() << endl;
 
 
 	sp_fondo = new Sprite;
 	tx_fondo = new Texture;
 	tx_fondo->loadFromFile("assets/mundo_fondo.jpg");
 	sp_fondo->setTexture(*tx_fondo);
+
+	font_temporizador.loadFromFile("assets/Square.ttf");
+	text_temporizador.setFont(font_temporizador);
+	temporizador_string = " " + to_string(t->asSeconds());
+	text_temporizador.setString(temporizador_string);
+	text_temporizador.setPosition(w->getSize().x /2, 30);
+	text_temporizador.setFillColor(Color::Black);
 
 	player = new Player("assets/spritesheet.png", Vector2i(26, 30), Vector2f(25, 460), 5);
 
@@ -69,8 +79,14 @@ Game::Game(int alto_w, int ancho_w, String nombre) {
 void Game::gameloop() {
 	while (w->isOpen()) {
 		*t = clock->getElapsedTime();
+		//*time_temporizador = clock_temporizador->getElapsedTime();
+
+		temporizador_string = " " + to_string(t->asSeconds()); //Actualiza el tiempo, lo convierte eb String y lo guarda en la variable temporizador_string
+		text_temporizador.setString(temporizador_string);      //Le paso la variable temporizador_string actualizada
+		cout << "tiempo animacion : " << t->asSeconds() << endl;
+		//cout << "tiempo temporizador: " << time_temporizador->asSeconds() << endl;
 		//cout << "tiempo: " << t->asSeconds() << endl;
-		//cout << "tiempo del player " << player->get_time() << endl;
+		cout << "tiempo del player " << player->get_time() << endl;
 		while (w->pollEvent(*e)) {
 			if (e->type == Event::Closed)
 				w->close();
@@ -124,6 +140,7 @@ void Game::dibujar() {
 	w->clear(Color(255, 255, 255, 255));
 	w->draw(*sp_fondo);
 	w->draw(player->get_sprite());
+	w->draw(text_temporizador);
 	for (int i = 0; i < 10; i++) {
 		w->draw(bloque[i]->get_sprite());
 		w->draw(bloque[i]->get_texto());
