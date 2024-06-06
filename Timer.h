@@ -11,8 +11,12 @@ private:
 	Font font_timer;
 	Text text_timer;
 	String string_timer;
+	int cuenta_regresiva;
 public:
 	Timer();
-	Timer(float,float);
+	Timer(int, float, float);
+	void actualizar_temp(); // toma el tiempo (de esta clase),lo transforma en string y se lo pasa al texto
+	Text get_text();
+
 };
 

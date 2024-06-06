@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "Player.h"
 #include "Bloque.h"
+#include "Timer.h"
 #include "iostream"
 
 using namespace sf;
@@ -13,12 +14,14 @@ class Game
 	Clock* clock;
 	Time* t;
 
-
-	Player* player;
-
-	Sprite* sp_fondo;   
+	Sprite* sp_fondo;
 	Texture* tx_fondo;
-	int fps = 60;   
+	int fps = 30;
+
+	Player* player;   
+	Timer* temporizador;
+	FloatRect colplayer;
+	FloatRect colbloque;
 
 	Bloque* bloque1;
 	Bloque* bloque2;
@@ -37,6 +40,7 @@ public:
 	Game(int, int, String);
 	void gameloop();   
 	void dibujar();
+	bool colision(Player,Bloque[],int);
 	
 };
 
