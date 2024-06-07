@@ -22,18 +22,24 @@ Game::Game(int alto_w, int ancho_w, String nombre) {
 	sp_fondo->setTexture(*tx_fondo);
 
 	temporizador = new Timer(60, w->getSize().x -200,30);
+
 	player = new Player("assets/spritesheet.png", Vector2i(26, 30), Vector2f(25, 460), 5);
+	//colision_derecha = false;
+	//colision_izquierda = false;
+	colision_arriba = false;
+	nivel_salto = player->get_position().y;
+	
 
 	bloque1 = new Bloque("assets/bloque_pared.png", Vector2i(0, 0), Vector2f(50, 260), rand()%1000);
 	bloque2 = new Bloque("assets/bloque_pared.png", Vector2i(0, 0), Vector2f(125, 260), rand() % 1000);
 	bloque3 = new Bloque("assets/bloque_pared.png", Vector2i(0, 0), Vector2f(200, 260), rand() % 1000);
-	bloque4 = new Bloque("assets/bloque_pared.png", Vector2i(0, 0), Vector2f(275, 450), rand() % 1000);
+	bloque4 = new Bloque("assets/bloque_pared.png", Vector2i(0, 0), Vector2f(275, 260), rand() % 1000);
 	bloque5 = new Bloque("assets/bloque_pared.png", Vector2i(0, 0), Vector2f(350, 260), rand() % 1000);
 	bloque6 = new Bloque("assets/bloque_pared.png", Vector2i(0, 0), Vector2f(350, 260), rand() % 1000);
 	bloque7 = new Bloque("assets/bloque_pared.png", Vector2i(0, 0), Vector2f(425, 260), rand() % 1000);
 	bloque8 = new Bloque("assets/bloque_pared.png", Vector2i(0, 0), Vector2f(500, 260), rand() % 1000);
 	bloque9 = new Bloque("assets/bloque_pared.png", Vector2i(0, 0), Vector2f(575, 260), rand() % 1000);
-	bloque10 = new Bloque("assets/bloque_pared.png", Vector2i(0, 0), Vector2f(650, 260), rand() % 1000);
+	bloque10 = new Bloque("assets/bloque_pared.png", Vector2i(0, 0), Vector2f(350, 450), rand() % 1000);
 
 	bloque[0] = bloque1;
 	bloque[1] = bloque2;
@@ -53,51 +59,51 @@ void Game::gameloop() {
 	while (w->isOpen()) {
 		*t = clock->getElapsedTime();
 		temporizador->actualizar_temp();//ACTUALIZA EL TEMPORIZADOR
-		//for (int i = 0; i < 10; i++) {
-			//if (bloque[i]->get_sprite().getGlobalBounds().intersects(player->get_sprite().getGlobalBounds()));
-			//cout << "colision con bloque" << endl;
-		//}
+
 		//cout << "tiempo juego : " << t->asSeconds() << endl;
 		//cout << "tiempo del player " << player->get_time() << endl;
 		while (w->pollEvent(*e)) {
-			if (e->type == Event::Closed)
+			
+			if (e->type == Event::Closed) {
 				w->close();
+			}
 			if (Keyboard::isKeyPressed(Keyboard::A)) {
 				player->set_position(player->get_position().x - 5, player->get_position().y);
 			}
 			if (Keyboard::isKeyPressed(Keyboard::D)) {
-				for (int i = 0; i < 10; i++) {
-					if (bloque[i]->get_sprite().getGlobalBounds().intersects(player->get_sprite().getGlobalBounds()));
-					cout << "colision con bloque" << endl;
-				}
-				player->set_position(player->get_position().x + 5, player->get_position().y);
+					player->set_position(player->get_position().x + 5, player->get_position().y);
 			}
 			if (Keyboard::isKeyPressed(Keyboard::Space)) {//SI SE PRESIONA ESPACIO
 				w->setKeyRepeatEnabled(false);           //BLOQUEO PARA QUE NO VUELVA A TOMAR LA ACCION HASTA TERMINAR EL CICLO
 				//CICLO DE SUBIDA DEL SALTO
-				for (int i = 0; i <= 11; i++) {
+				for (int i = 0; i <= 11; i++) {//FOR DE SUBIDA
 					temporizador->actualizar_temp();
-					if (t->asSeconds() >= 0.5) {
-						for (int i = 0; i < 10; i++) {
-							if (bloque[i]->get_sprite().getGlobalBounds().intersects(player->get_sprite().getGlobalBounds()));
-							cout << "colision con bloque" << endl;
-						}
-						player->set_position(player->get_position().x, player->get_position().y - 20);
+					for(int i=0; i<10; i++){ //FOR QUE RECORRE LOS GLOBAL BOUNDS DE LOS BLOQUES
+					    rect_bloque = bloque[i]->get_sprite().getGlobalBounds();
+					    rect_player = player->get_sprite().getGlobalBounds();
+					    if (rect_player.intersects(rect_bloque) == true) {
+							colision_arriba = true;
+							bloque_colisionado = i;
+							cout << "bloque colisionado: " << bloque_colisionado << endl;
+					    }
+					}
+					if (t->asSeconds() >= 0.5 && colision_arriba == false) { //ESPERA MEDIO SEGUNDO Y SI NO HAY COLISION CON BLOQUE 
+						player->set_position(player->get_position().x, player->get_position().y - 20);//SE DESPLAZA HACIA ARRIBA
 						if (Keyboard::isKeyPressed(Keyboard::D)) {
-							player->set_position(player->get_position().x + 5, player->get_position().y);
+							player->set_position(player->get_position().x + 5, player->get_position().y);//DESPLAZAMIENTO HORIZONTAL MIENTRAS SALTA
 						}
 						if (Keyboard::isKeyPressed(Keyboard::A)) {
-							player->set_position(player->get_position().x - 5, player->get_position().y);
+							player->set_position(player->get_position().x - 5, player->get_position().y);//DESPLAZAMIENTO HORIZONTAL MIENTRAS SALTA
 						}
-						cout << "subida en y  " << player->get_position().y << "   subida en x  " << player->get_position().x << endl;
 						clock->restart();
 						dibujar();
 					}
 				}
 				//CICLO DE CAIDA DEL SALTO
 				for (int i = 0; i <= 11; i++) {
+					colision_arriba = false; //CUANDO EMPIEZA A CAER DESACTIVA LA COLISION CON EL BLOQUE
 					temporizador->actualizar_temp();
-					if (t->asSeconds() >= 0.5) {
+					if (t->asSeconds() >= 0.5 && player->get_position().y <= 445) {
 						player->set_position(player->get_position().x , player->get_position().y + 20);
 						if (Keyboard::isKeyPressed(Keyboard::D)) {
 							player->set_position(player->get_position().x + 5, player->get_position().y);
@@ -105,7 +111,6 @@ void Game::gameloop() {
 						if (Keyboard::isKeyPressed(Keyboard::A)) {
 							player->set_position(player->get_position().x - 5, player->get_position().y);
 						}
-						cout << "caida en y  " << player->get_position().y << "   caida en x  " << player->get_position().x << endl;
 						clock->restart();
 						dibujar();
 					}
@@ -116,6 +121,7 @@ void Game::gameloop() {
 		dibujar();
 	}
 }
+
 
 bool colision(Player pj, Bloque b[], int n) {
 	bool colision = false;;
