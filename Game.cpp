@@ -27,12 +27,12 @@ Game::Game(int alto_w, int ancho_w, String nombre) {
 	//colision_derecha = false;
 	//colision_izquierda = false;
 	colision_arriba = false;
-	nivel_salto = player->get_position().y;
+	//nivel_salto = player->get_position().y;
 	
 
 	bloque1 = new Bloque("assets/bloque_pared.png", Vector2i(0, 0), Vector2f(50, 260), rand()%1000);
-	bloque2 = new Bloque("assets/bloque_pared.png", Vector2i(0, 0), Vector2f(125, 260), rand() % 1000);
-	bloque3 = new Bloque("assets/bloque_pared.png", Vector2i(0, 0), Vector2f(200, 260), rand() % 1000);
+	bloque2 = new Bloque("assets/bloque_pared.png", Vector2i(0, 0), Vector2f(117.5, 260), rand() % 1000);
+	bloque3 = new Bloque("assets/bloque_pared.png", Vector2i(0, 0), Vector2f(185, 260), rand() % 1000);
 	bloque4 = new Bloque("assets/bloque_pared.png", Vector2i(0, 0), Vector2f(275, 260), rand() % 1000);
 	bloque5 = new Bloque("assets/bloque_pared.png", Vector2i(0, 0), Vector2f(350, 260), rand() % 1000);
 	bloque6 = new Bloque("assets/bloque_pared.png", Vector2i(0, 0), Vector2f(350, 260), rand() % 1000);
@@ -80,8 +80,9 @@ void Game::gameloop() {
 					temporizador->actualizar_temp();
 					for(int i=0; i<10; i++){ //FOR QUE RECORRE LOS GLOBAL BOUNDS DE LOS BLOQUES
 					    rect_bloque = bloque[i]->get_sprite().getGlobalBounds();
-					    rect_player = player->get_sprite().getGlobalBounds();
-					    if (rect_player.intersects(rect_bloque) == true) {
+					    pos_saltando.x = player->get_position().x + 13; //EL CENTRO DEL PLAYER EN EL EJE X
+						pos_saltando.y = player->get_position().y;
+					    if (rect_bloque.contains(pos_saltando)) {
 							colision_arriba = true;
 							bloque_colisionado = i;
 							cout << "bloque colisionado: " << bloque_colisionado << endl;

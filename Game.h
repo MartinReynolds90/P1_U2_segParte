@@ -20,13 +20,14 @@ class Game
 
 	Player* player;   
 	Timer* temporizador;
-	FloatRect rect_player;
+	//FloatRect rect_player;
 	FloatRect rect_bloque;
-	bool colision_derecha;
-	bool colision_izquierda;
+	Vector2f pos_saltando;
+	//bool colision_derecha;
+	//bool colision_izquierda;
 	bool colision_arriba;
 	int bloque_colisionado = 0;
-	int nivel_salto;
+	//int nivel_salto;
 
 	Bloque* bloque1;
 	Bloque* bloque2;
