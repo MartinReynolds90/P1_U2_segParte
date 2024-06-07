@@ -13,7 +13,7 @@ private:
 	int contador_frame;
 public:
 	Player();
-	Player(String, Vector2i, Vector2f, int);
+	Player(String, Vector2i, Vector2f);
 	Sprite get_sprite();
 	Vector2f get_position();
 	void set_position(float, float);

@@ -3,23 +3,10 @@
 using namespace sf;
 
 Player::Player() {
-
-	sp_player = new Sprite;
-	tx_player = new Texture;
-	tx_player->loadFromFile("assets/spritesheet.png");
-	sp_player->setTexture(*tx_player);
-	rect_player = new IntRect(0, 0, 32, 32);
-	sp_player->setTextureRect(*rect_player);
-	sp_player->setPosition(25, 570);
-
-
-	contador_frame = 0;
-	clock_player = new Clock();
-	time_player = new Time();
 }
 
-
-Player::Player(String archivo, Vector2i xy_frame, Vector2f position_pj, int vel) {
+//ARCHIVO(el arcivo que usa),XY_FRAME(coordenadas para pasarle al IntRect, sobre que recuadro usar)POSITION_PJ(la posicion con que inicia en pantalla) 
+Player::Player(String archivo, Vector2i xy_frame, Vector2f position_pj) {
 	sp_player = new Sprite;
 	tx_player = new Texture;
 	tx_player->loadFromFile(archivo);
@@ -29,8 +16,8 @@ Player::Player(String archivo, Vector2i xy_frame, Vector2f position_pj, int vel)
 	sp_player->setPosition(position_pj.x, position_pj.y);
 	sp_player->setScale(sp_player->getScale().x * 2, sp_player->getScale().y * 2);
 
-	contador_frame = 0;
-	clock_player = new Clock();
+	//contador_frame = 0;
+	clock_player = new Clock(); 
 	time_player = new Time();
 
 }

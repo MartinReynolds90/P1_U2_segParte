@@ -23,23 +23,24 @@ Game::Game(int alto_w, int ancho_w, String nombre) {
 
 	temporizador = new Timer(60, w->getSize().x -200,30);
 
-	player = new Player("assets/spritesheet.png", Vector2i(26, 30), Vector2f(25, 460), 5);
+	player = new Player("assets/spritesheet.png", Vector2i(26, 30), Vector2f(25, 460));//CREO UN PLAYER
 	//colision_derecha = false;
 	//colision_izquierda = false;
 	colision_arriba = false;
 	//nivel_salto = player->get_position().y;
+	num_anterior = 0;
 	
 
 	bloque1 = new Bloque("assets/bloque_pared.png", Vector2i(0, 0), Vector2f(50, 260), rand()%1000);
 	bloque2 = new Bloque("assets/bloque_pared.png", Vector2i(0, 0), Vector2f(117.5, 260), rand() % 1000);
 	bloque3 = new Bloque("assets/bloque_pared.png", Vector2i(0, 0), Vector2f(185, 260), rand() % 1000);
-	bloque4 = new Bloque("assets/bloque_pared.png", Vector2i(0, 0), Vector2f(275, 260), rand() % 1000);
-	bloque5 = new Bloque("assets/bloque_pared.png", Vector2i(0, 0), Vector2f(350, 260), rand() % 1000);
-	bloque6 = new Bloque("assets/bloque_pared.png", Vector2i(0, 0), Vector2f(350, 260), rand() % 1000);
-	bloque7 = new Bloque("assets/bloque_pared.png", Vector2i(0, 0), Vector2f(425, 260), rand() % 1000);
-	bloque8 = new Bloque("assets/bloque_pared.png", Vector2i(0, 0), Vector2f(500, 260), rand() % 1000);
-	bloque9 = new Bloque("assets/bloque_pared.png", Vector2i(0, 0), Vector2f(575, 260), rand() % 1000);
-	bloque10 = new Bloque("assets/bloque_pared.png", Vector2i(0, 0), Vector2f(350, 450), rand() % 1000);
+	bloque4 = new Bloque("assets/bloque_pared.png", Vector2i(0, 0), Vector2f(252.5, 260), rand() % 1000);
+	bloque5 = new Bloque("assets/bloque_pared.png", Vector2i(0, 0), Vector2f(320, 260), rand() % 1000);
+	bloque6 = new Bloque("assets/bloque_pared.png", Vector2i(0, 0), Vector2f(387.5, 260), rand() % 1000);
+	bloque7 = new Bloque("assets/bloque_pared.png", Vector2i(0, 0), Vector2f(455, 260), rand() % 1000);
+	bloque8 = new Bloque("assets/bloque_pared.png", Vector2i(0, 0), Vector2f(522.5, 260), rand() % 1000);
+	bloque9 = new Bloque("assets/bloque_pared.png", Vector2i(0, 0), Vector2f(590, 260), rand() % 1000);
+	bloque10 = new Bloque("assets/bloque_pared.png", Vector2i(0, 0), Vector2f(657.5, 260), rand() % 1000);
 
 	bloque[0] = bloque1;
 	bloque[1] = bloque2;
@@ -79,13 +80,19 @@ void Game::gameloop() {
 				for (int i = 0; i <= 11; i++) {//FOR DE SUBIDA
 					temporizador->actualizar_temp();
 					for(int i=0; i<10; i++){ //FOR QUE RECORRE LOS GLOBAL BOUNDS DE LOS BLOQUES
-					    rect_bloque = bloque[i]->get_sprite().getGlobalBounds();
-					    pos_saltando.x = player->get_position().x + 13; //EL CENTRO DEL PLAYER EN EL EJE X
+					    rect_bloque = bloque[i]->get_sprite().getGlobalBounds();//OBTENGO EL RECTANGULO DE CADA LOQUE PARA VER SI COLISIONA EL PLAYER 
+					    pos_saltando.x = player->get_position().x + 26; //EL CENTRO DEL PLAYER EN EL EJE X(PARA QUE COLISIONE CON UN SOLO BLOQUE)
 						pos_saltando.y = player->get_position().y;
 					    if (rect_bloque.contains(pos_saltando)) {
 							colision_arriba = true;
 							bloque_colisionado = i;
-							cout << "bloque colisionado: " << bloque_colisionado << endl;
+							if (bloque[i]->get_int() >= num_anterior) {
+								cout << "numero que tiene el bloque colisionado (" << bloque_colisionado << "), es mayor al anterior : " << bloque[i]->get_int() << ">" << num_anterior << endl;
+								num_anterior = bloque[i]->get_int();
+							}
+							else {
+								cout << "numero que tiene el bloque colisionado (" << bloque_colisionado << "), es menor al anterior : " << bloque[i]->get_int() << "<" << num_anterior << endl;
+							} 
 					    }
 					}
 					if (t->asSeconds() >= 0.5 && colision_arriba == false) { //ESPERA MEDIO SEGUNDO Y SI NO HAY COLISION CON BLOQUE 
@@ -104,13 +111,13 @@ void Game::gameloop() {
 				for (int i = 0; i <= 11; i++) {
 					colision_arriba = false; //CUANDO EMPIEZA A CAER DESACTIVA LA COLISION CON EL BLOQUE
 					temporizador->actualizar_temp();
-					if (t->asSeconds() >= 0.5 && player->get_position().y <= 445) {
-						player->set_position(player->get_position().x , player->get_position().y + 20);
+					if (t->asSeconds() >= 0.5 && player->get_position().y <= 445) {  //SI SIGUE POR ENCIMA DEL NIVEL DEL SUELO, SIGUE CAYENDO
+						player->set_position(player->get_position().x , player->get_position().y + 20);//SE DESPLAZA HACIA ABAJO(CAE)
 						if (Keyboard::isKeyPressed(Keyboard::D)) {
-							player->set_position(player->get_position().x + 5, player->get_position().y);
+							player->set_position(player->get_position().x + 5, player->get_position().y);//DESPLAZAMIENTO HORIZONTAL MIENTRAS SALTA
 						}
 						if (Keyboard::isKeyPressed(Keyboard::A)) {
-							player->set_position(player->get_position().x - 5, player->get_position().y);
+							player->set_position(player->get_position().x - 5, player->get_position().y);//DESPLAZAMIENTO HORIZONTAL MIENTRAS SALTA
 						}
 						clock->restart();
 						dibujar();

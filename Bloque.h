@@ -24,4 +24,6 @@ public:
 	void set_color();
 	Text get_texto();
 	int get_int();
-};
+	//una funcion recibe los numeros de todos los bloques y los ordena de menor a mayo, y recibe el bloque golpeado
+	//y compara si el golpeado
+}; 

@@ -5,13 +5,6 @@ using namespace sf;
 using namespace std;
 
 Bloque::Bloque() {
-	/*sp_bloque = new Sprite;
-	tx_bloque = new Texture;
-	tx_bloque->loadFromFile("assets/bloque_pared.png");
-	sp_bloque->setTexture(*tx_bloque);
-	rect_bloque = new IntRect(0, 0, 32, 32);
-	sp_bloque->setTextureRect(*rect_bloque);*/
-
 }
 Bloque::Bloque(String archivo, Vector2i xy_frame, Vector2f posicion_bl,int num_bloque) {
 	tx_bloque = new Texture;
@@ -35,14 +28,6 @@ Bloque::Bloque(String archivo, Vector2i xy_frame, Vector2f posicion_bl,int num_b
 	tx_num->setPosition(posicion_bl);
 	tx_num->setFillColor(Color::Green);
 
-
-	
-	
-
-	//texto->setString(num_bloque);
-	//texto->setCharacterSize(32);
-	//texto->setFillColor(Color::Red);
-	//texto->setPosition(position_bl);
 }
 
 Sprite Bloque::get_sprite() {

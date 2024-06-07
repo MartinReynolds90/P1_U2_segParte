@@ -29,6 +29,8 @@ class Game
 	int bloque_colisionado = 0;
 	//int nivel_salto;
 
+	int num_anterior;
+
 	Bloque* bloque1;
 	Bloque* bloque2;
 	Bloque* bloque3;
