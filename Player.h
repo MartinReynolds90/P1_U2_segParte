@@ -19,5 +19,6 @@ public:
 	void set_position(float, float);
 	float get_time();
 	void restart_clock();
+	void animar();
 };
 

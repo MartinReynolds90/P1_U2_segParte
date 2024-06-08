@@ -59,3 +59,9 @@ Text Bloque::get_texto() {
 int Bloque::get_int() { //Devuelve el número ENTERO que corresponde al bloque
 	return num_int;
 }
+
+void Bloque::set_int(int num_ordenado) {
+    num_int = num_ordenado;
+	num_string = " " + to_string(num_ordenado);
+	tx_num->setString(num_string);
+}

@@ -20,6 +20,7 @@ class Game
 
 	Player* player;   
 	Timer* temporizador;
+	int arreglo_numeros[10];
 	//FloatRect rect_player;
 	FloatRect rect_bloque;
 	Vector2f pos_saltando;     
@@ -49,7 +50,7 @@ public:
 	Game(int, int, String);
 	void gameloop();   
 	void dibujar();
-	bool colision(Player,Bloque[],int);
+	void ordenar_arreglo(int[],int);
 	
 };
 

@@ -46,3 +46,7 @@ float Player::get_time() {
 void Player::restart_clock() {
 	clock_player->restart();
 }
+
+void Player::animar() {
+
+}

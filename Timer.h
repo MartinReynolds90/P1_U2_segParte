@@ -11,7 +11,7 @@ private:
 	Font font_timer;
 	Text text_timer;
 	String string_timer;
-	int cuenta_regresiva;
+	int tiempo_inicial;
 public:
 	Timer();
 	Timer(int, float, float);
