@@ -17,6 +17,7 @@ public:
 	Timer(int, float, float);
 	void actualizar_temp(); // toma el tiempo (de esta clase),lo transforma en string y se lo pasa al texto
 	Text get_text();
+	void penalizacion_time(bool);
 
 };
 

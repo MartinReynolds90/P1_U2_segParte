@@ -21,7 +21,7 @@ public:
 	void set_sprite(Texture);
 	void set_position(float,float);
 	Vector2f get_position();
-	void set_color();
+	void set_color(Color);
 	Text get_texto();
 	int get_int();
 	//una funcion recibe los numeros de todos los bloques y los ordena de menor a mayo, y recibe el bloque golpeado

@@ -23,6 +23,9 @@ void Timer::actualizar_temp() {           //actualiza el texto cada segundo
 	string_timer = "Tiempo: " + to_string(cuenta_regresiva - static_cast<int>(time_timer->asSeconds()));
 	text_timer.setString(string_timer);
 }
+void Timer::penalizacion_time(bool descuento) {
+	if (descuento == true)cuenta_regresiva = cuenta_regresiva - 10;
+}
 
 Text Timer::get_text() { //obtengo el texto para poder dibujarlo
 	return text_timer;

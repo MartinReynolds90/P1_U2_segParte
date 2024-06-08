@@ -29,6 +29,7 @@ Game::Game(int alto_w, int ancho_w, String nombre) {
 	colision_arriba = false;
 	//nivel_salto = player->get_position().y;
 	num_anterior = 0;
+	descontar_diez = false;
 	
 
 	bloque1 = new Bloque("assets/bloque_pared.png", Vector2i(0, 0), Vector2f(50, 260), rand()%1000);
@@ -75,23 +76,26 @@ void Game::gameloop() {
 					player->set_position(player->get_position().x + 5, player->get_position().y);
 			}
 			if (Keyboard::isKeyPressed(Keyboard::Space)) {//SI SE PRESIONA ESPACIO
-				w->setKeyRepeatEnabled(false);           //BLOQUEO PARA QUE NO VUELVA A TOMAR LA ACCION HASTA TERMINAR EL CICLO
+				w->setKeyRepeatEnabled(false);            //BLOQUEO PARA QUE NO VUELVA A TOMAR LA ACCION HASTA TERMINAR EL CICLO
 				//CICLO DE SUBIDA DEL SALTO
-				for (int i = 0; i <= 11; i++) {//FOR DE SUBIDA
+				for (int i = 0; i <= 12; i++) {//FOR DE SUBIDA
 					temporizador->actualizar_temp();
-					for(int i=0; i<10; i++){ //FOR QUE RECORRE LOS GLOBAL BOUNDS DE LOS BLOQUES
+					for(int i=0; i<10; i++){   //FOR QUE RECORRE LOS GLOBAL BOUNDS DE LOS BLOQUES
 					    rect_bloque = bloque[i]->get_sprite().getGlobalBounds();//OBTENGO EL RECTANGULO DE CADA LOQUE PARA VER SI COLISIONA EL PLAYER 
-					    pos_saltando.x = player->get_position().x + 26; //EL CENTRO DEL PLAYER EN EL EJE X(PARA QUE COLISIONE CON UN SOLO BLOQUE)
+					    pos_saltando.x = player->get_position().x + 26;         //EL CENTRO DEL PLAYER EN EL EJE X(PARA QUE COLISIONE CON UN SOLO BLOQUE)
 						pos_saltando.y = player->get_position().y;
 					    if (rect_bloque.contains(pos_saltando)) {
 							colision_arriba = true;
 							bloque_colisionado = i;
 							if (bloque[i]->get_int() >= num_anterior) {
 								cout << "numero que tiene el bloque colisionado (" << bloque_colisionado << "), es mayor al anterior : " << bloque[i]->get_int() << ">" << num_anterior << endl;
+								bloque[i]->set_color(Color::Green);
 								num_anterior = bloque[i]->get_int();
 							}
 							else {
 								cout << "numero que tiene el bloque colisionado (" << bloque_colisionado << "), es menor al anterior : " << bloque[i]->get_int() << "<" << num_anterior << endl;
+								bloque[i]->set_color(Color::Red);
+								descontar_diez = true;
 							} 
 					    }
 					}
@@ -107,8 +111,9 @@ void Game::gameloop() {
 						dibujar();
 					}
 				}
+				temporizador->penalizacion_time(descontar_diez);
 				//CICLO DE CAIDA DEL SALTO
-				for (int i = 0; i <= 11; i++) {
+				for (int i = 0; i <= 12; i++) {
 					colision_arriba = false; //CUANDO EMPIEZA A CAER DESACTIVA LA COLISION CON EL BLOQUE
 					temporizador->actualizar_temp();
 					if (t->asSeconds() >= 0.5 && player->get_position().y <= 445) {  //SI SIGUE POR ENCIMA DEL NIVEL DEL SUELO, SIGUE CAYENDO

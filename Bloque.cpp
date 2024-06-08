@@ -26,7 +26,7 @@ Bloque::Bloque(String archivo, Vector2i xy_frame, Vector2f posicion_bl,int num_b
 	num_string = " " + to_string(num_bloque);
 	tx_num->setString(num_string);
 	tx_num->setPosition(posicion_bl);
-	tx_num->setFillColor(Color::Green);
+	tx_num->setFillColor(Color::Yellow);
 
 }
 
@@ -48,8 +48,8 @@ void Bloque::set_position(float x,float y) {
 	sp_bloque->setPosition(x, y);
 }
  
-void Bloque::set_color() {   //Cambia el color del texto del bloque
-	tx_num->setFillColor(Color::Red);
+void Bloque::set_color(Color new_color) {   //Cambia el color del texto del bloque
+	tx_num->setFillColor(new_color);
 }
 
 Text Bloque::get_texto() { 

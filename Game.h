@@ -22,14 +22,15 @@ class Game
 	Timer* temporizador;
 	//FloatRect rect_player;
 	FloatRect rect_bloque;
-	Vector2f pos_saltando;
+	Vector2f pos_saltando;     
 	//bool colision_derecha;
 	//bool colision_izquierda;
-	bool colision_arriba;
-	int bloque_colisionado = 0;
+	bool colision_arriba;       //SE HACE TRUE CUANDO COLISIONA CON UN BLOQUE
+	int bloque_colisionado = 0; //GUARDA LA POSICION EN EL ARREGLO DE BLOQUES, DEL BLOQUE GOLPEADO
 	//int nivel_salto;
 
-	int num_anterior;
+	int num_anterior;    //GUARDA EL NUMERO DEL BLOQUE QUE SE GOLPEO ANTES
+	bool descontar_diez; //SE HACE TRUE CUANDO HAY QUE DESCONTAR 10 SEGUNDOS 
 
 	Bloque* bloque1;
 	Bloque* bloque2;
