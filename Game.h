@@ -9,26 +9,26 @@ using namespace sf;
 
 class Game
 {
-	RenderWindow* w;
+	RenderWindow* w;   
 	Event* e;
 	Clock* clock;
 	Time* t;
 
-	Sprite* sp_fondo;
+	Sprite* sp_fondo; //SPRITE Y TEXTURA DEL FONDO
 	Texture* tx_fondo;
 	int fps = 30;
 
-	Player* player;   
-	Timer* temporizador;
+	Player* player;             //DECLARO EL PLAYER
+	Timer* temporizador;        //DECLARO EL TEMPORIZADOR
 	int arreglo_numeros[10];
-	//FloatRect rect_player;
+
 	FloatRect rect_bloque;
-	Vector2f pos_saltando;     
-	//bool colision_derecha;
-	//bool colision_izquierda;
+	Vector2f pos_saltando;      //GUARDA LA POSICION DEL PLAYER MIENTRAS SALTA, TOMANDO COMO REFERENCIA EN EL EJE X EL CENTRO DEL SPRITE, 
+	                            //MIENTRAS QUE EN EL EJE Y EL 0 DEL SPRITE. ESTO FACILITA LA DETECCION DE COLISION DEL PUNTO CONTRA EL RECTANGULO DEL BLOQUE
+	
+	
 	bool colision_arriba;       //SE HACE TRUE CUANDO COLISIONA CON UN BLOQUE
 	int bloque_colisionado = 0; //GUARDA LA POSICION EN EL ARREGLO DE BLOQUES, DEL BLOQUE GOLPEADO
-	//int nivel_salto;
 
 	int num_anterior;    //GUARDA EL NUMERO DEL BLOQUE QUE SE GOLPEO ANTES
 	bool descontar_diez; //SE HACE TRUE CUANDO HAY QUE DESCONTAR 10 SEGUNDOS 
@@ -43,7 +43,7 @@ class Game
 	Bloque* bloque8;
 	Bloque* bloque9;
 	Bloque* bloque10;
-	Bloque* bloque[10];// = {bloque1,bloque2,bloque3,bloque4,bloque5,bloque6,bloque7,bloque8,bloque9,bloque10};*/;
+	Bloque* bloque[10];
 
 public:
 	Game();

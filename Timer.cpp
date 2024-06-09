@@ -3,7 +3,7 @@
 
 using namespace std;
 
-Timer::Timer(int tiempoJuego, float x,float y){ //recive como parametros el tiempo de juego y su posicion en la pantalla
+Timer::Timer(int tiempoJuego, float x,float y){ //reciBe como parametros el TIEMPO INICIAL y su POSICION EN PANTALLA
 	tiempo_inicial = tiempoJuego;
 	clock_timer = new Clock();
 	time_timer = new Time();
@@ -18,15 +18,18 @@ Timer::Timer(int tiempoJuego, float x,float y){ //recive como parametros el tiem
 
 	
 }
-void Timer::actualizar_temp() {           //actualiza el texto cada segundo
+void Timer::actualizar_temp() {           //ACTUALIZA EL TIEMPO DEL TEMPORIZADOR EN SEGUNDOS
 	*time_timer = clock_timer->getElapsedTime();
 	string_timer = "Tiempo: " + to_string(tiempo_inicial - static_cast<int>(time_timer->asSeconds()));
 	text_timer.setString(string_timer);
 }
-void Timer::penalizacion_time(bool descuento) {
+void Timer::penalizacion_time(bool descuento) {//DESCUENTA LOS SEGUNDOS CUANDO ES NECESARIO
 	if (descuento == true)tiempo_inicial = tiempo_inicial - 10;
 }
 
-Text Timer::get_text() { //obtengo el texto para poder dibujarlo
+Text Timer::get_text() { //OBTIENE EL TEXTO PARA PODER DIBUJARLO
 	return text_timer;
+}
+float Timer::get_time() {//DEVUELVE EL TIEMPO EN FLOAT CON LOS DESCUENTOS POR PENALIZACION HECHOS.
+	return tiempo_inicial - time_timer->asSeconds();
 }

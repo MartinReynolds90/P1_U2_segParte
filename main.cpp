@@ -4,7 +4,7 @@ using namespace sf;
 int main()
 {
 	Game* game;
-	game = new Game(800, 600, "Program 1");
+	game = new Game(800, 600, "Programacion 1");
 
 
 

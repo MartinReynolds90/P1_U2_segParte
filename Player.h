@@ -8,17 +8,16 @@ private:
 	Sprite* sp_player;
 	Texture* tx_player;
 	IntRect* rect_player;
-	Time* time_player;
-	Clock* clock_player;
 	int contador_frame;
+	int velocidad;
 public:
 	Player();
-	Player(String, Vector2i, Vector2f);
+	Player(String, Vector2i, Vector2f,int);
 	Sprite get_sprite();
 	Vector2f get_position();
 	void set_position(float, float);
-	float get_time();
-	void restart_clock();
-	void animar();
+	int get_velocidad();
+	void set_velocidad(int);
+
 };
 
