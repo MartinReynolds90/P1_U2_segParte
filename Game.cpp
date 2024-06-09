@@ -31,7 +31,7 @@ Game::Game(int alto_w, int ancho_w, String nombre) {
 	colision_arriba = false;
 	num_anterior = 0;
 	descontar_diez = false;
-	
+	 
 
 	bloque1 = new Bloque("assets/bloque_pared.png", Vector2i(0, 0), Vector2f(50, 260), arreglo_numeros[0]);
 	bloque2 = new Bloque("assets/bloque_pared.png", Vector2i(0, 0), Vector2f(117.5, 260), arreglo_numeros[1]);
